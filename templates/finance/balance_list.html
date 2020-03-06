@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="{% url 'transaction_list' %}"><button type="button" class="btn btn-primary">Transactions</button></a>
+
+    <table class="table table-striped mt-2">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Wallet</th>
+            <th scope="col">Sub Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for balance in object_list %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td >{{balance.wallet}}</td>
+            <td>{{balance.total}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="2">Total: </th>
+            <td>{{total}}</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
