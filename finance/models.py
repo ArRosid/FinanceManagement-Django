@@ -12,22 +12,29 @@ class Balance(models.Model):
     total = models.IntegerField()
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
-class Credit(models.Model):
-    description = models.CharField(max_length=100)
-    total = models.IntegerField()
-    wallet = models.CharField(max_length=20, choices=WALLET_CHOICES)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+# class Credit(models.Model):
+#     description = models.CharField(max_length=100)
+#     total = models.IntegerField()
+#     wallet = models.CharField(max_length=20, choices=WALLET_CHOICES)
+#     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+#     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
-class Debit(models.Model):
-    TYPE_CHOICES = (
+class Transaction(models.Model):
+    TRANSACTION_CHOICES = (
+        ("Credit", "Credit"),
+        ("Debit", "Debit")
+    )
+
+    SPENDING_CHOICES = (
         ("Donation","Donation"),
         ("Daily", "Daily"),
         ("Holiday", "Holiday"),
     )
+
+    transaction_type = models.CharField(max_length=20, choices=TRANSACTION_CHOICES)
     wallet = models.CharField(max_length=20, choices=WALLET_CHOICES)
     total = models.IntegerField()
     description = models.CharField(max_length=255)
-    type_spending = models.CharField(max_length=100, choices=TYPE_CHOICES)
+    spending = models.CharField(max_length=100, choices=SPENDING_CHOICES, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
