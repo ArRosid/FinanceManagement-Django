@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         {% for transaction in object_list %}
-        <tr>
+        <tr class="{% if transaction.transaction_type == 'Credit' %} table-success {% else %} table-danger {% endif %}">
             <th scope="row">{{forloop.counter}}</th>
             <td >{{transaction.transaction_type}}</td>
             <td>{{transaction.wallet}}</td>
