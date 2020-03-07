@@ -25,10 +25,9 @@
             <td>{{transaction.created_at}}</td>
         </tr>
         {% endfor %}
-        <tr>
-            <th align="right" colspan="2">Total: </th>
-            <td>{{total}}</td>
-        </tr>
         </tbody>
     </table>
+    <p>Total Credit: {{total_credit}}</p>
+    <p>Total Debit: {{total_debit}}</p>
+    <p>Current Balance: {{current_balance}}</p>
 {% endblock %}
