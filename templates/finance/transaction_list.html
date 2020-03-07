@@ -3,6 +3,17 @@
 {% block content %}
     <a href="{% url 'balance' %}"><button type="button" class="btn btn-primary mb-2">Home</button></a>
     <a href="{% url 'transaction_create' %}"><button type="button" class="btn btn-primary mb-2">New Transaction</button></a>
+    
+    <div class="dropdown d-inline-block mb-2">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Choose Month
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for month in month_year_list %}
+            <a class="dropdown-item" href="{% url 'transaction_list' %}?month={{month}}">{{month}}</a>
+            {% endfor %}
+        </div>
+    </div>
 
     <table class="table table-striped">
         <thead class="thead-dark">
@@ -27,7 +38,7 @@
         {% endfor %}
         </tbody>
     </table>
-    <p>Total Credit: {{total_credit}}</p>
-    <p>Total Debit: {{total_debit}}</p>
-    <p>Current Balance: {{current_balance}}</p>
+    <p>Total Credit this month: {{total_credit}}</p>
+    <p>Total Debit this month: {{total_debit}}</p>
+    <p>Deviation : {{current_balance}}</p>
 {% endblock %}
