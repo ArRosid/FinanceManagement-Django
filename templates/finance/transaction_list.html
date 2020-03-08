@@ -40,7 +40,11 @@
         {% endfor %}
         </tbody>
     </table>
-    <p>Total Credit this month: {{total_credit}}</p>
-    <p>Total Debit this month: {{total_debit}}</p>
-    <p>Deviation : {{current_balance}}</p>
+    <hr class="mt-0 mb-4">
+
+    <p class="mt-0 mb-1">Total Credit this month: {{total_credit}}</p>
+    <p class="mt-0 mb-1">Total Debit this month: {{total_debit}}</p>
+    <p class="mt-0 mb-0">Deviation : {{current_balance}}</p>
+    <hr class="mt-4 mb-4">
+
 {% endblock %}
