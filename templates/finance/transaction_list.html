@@ -46,17 +46,40 @@
     <p class="mt-0 mb-1">Total Debit this month: {{total_debit}}</p>
     <p class="mt-0 mb-0">Deviation : {{current_balance}}</p>
     <hr class="mt-4 mb-4">
-    <canvas id="credit-debit" width="800" height="450"></canvas>
+    <canvas id="credit-debit" width="1000" height="450"></canvas>
 
 {% endblock %}
 
 {% block script %}
 <script>
-    console.log("{{total_debit}}")
     var credit = parseFloat("{{total_credit}}".replace(/,/g, ''));
     var debit = parseFloat("{{total_debit}}".replace(/,/g, ''));
-    console.log(credit)
-    console.log(debit)
+    
+    var options = {
+      title: {
+        display: true,
+        text: 'Credit & Debit Chart'
+      },
+      tooltips: {
+        enabled: false
+      },
+      plugins: {
+        datalabels: {
+          formatter: (value, ctx) => {
+            let datasets = ctx.chart.data.datasets;
+            if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
+              let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+              let percentage = ((value / sum) * 100).toFixed(2) + '%' + ' (' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ')' ;
+              return percentage;
+            } else {
+              return percentage;
+            }
+          },
+          color: '#fff',
+        }
+      }
+    };
+
     new Chart(document.getElementById("credit-debit"), {
     type: 'pie',
     data: {
@@ -67,12 +90,7 @@
         data: [credit,debit]
       }]
     },
-    options: {
-      title: {
-        display: true,
-        text: 'Credit & Debit Chart'
-      }
-    }
+    options: options,
 });
 </script>
 {% endblock %}
