@@ -126,7 +126,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 USE_THOUSAND_SEPARATOR = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = '/'
-
+TIME_ZONE = "Asia/Jakarta"
 
 try:
     import local_settings
