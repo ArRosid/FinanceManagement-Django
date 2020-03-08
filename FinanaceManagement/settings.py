@@ -129,6 +129,6 @@ LOGIN_REDIRECT_URL = '/'
 TIME_ZONE = "Asia/Jakarta"
 
 try:
-    import local_settings
+    from local_settings import *
 except:
     pass
