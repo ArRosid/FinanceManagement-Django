@@ -22,6 +22,7 @@
             <th scope="col">Transaction Type</th>
             <th scope="col">Wallet</th>
             <th scope="col">Total</th>
+            <th scope="col">Description</th>
             <th scope="col">Created At</th>
 
         </tr>
@@ -33,6 +34,7 @@
             <td >{{transaction.transaction_type}}</td>
             <td>{{transaction.wallet}}</td>
             <td>{{transaction.total}}</td>
+            <td>{{transaction.description}}</td>
             <td>{{transaction.created_at}}</td>
         </tr>
         {% endfor %}

@@ -30,6 +30,9 @@ class Transaction(models.Model):
         ("Donation","Donation"),
         ("Daily", "Daily"),
         ("Holiday", "Holiday"),
+        ("Long Term Needs", "Long Term Needs"),
+        ("Shopping", "Shopping"),
+        ("Snack", "Snack")
     )
 
     transaction_type = models.CharField(max_length=20, choices=TRANSACTION_CHOICES)
