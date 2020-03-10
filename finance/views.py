@@ -90,10 +90,36 @@ class TransactionListView(LoginRequiredMixin, ListView):
             
         current_balance = total_credit - total_debit
 
+
+        #calculate spendings
+        spendings = {}
+        spendings["donation"] = 0
+        spendings["daily"] = 0
+        spendings["holiday"] = 0
+        spendings["long"] = 0
+        spendings["shopping"] = 0
+        spendings["snack"] = 0
+
+        for trans in transaction_this_month:
+            if trans.spending == "Donation":
+                spendings["donation"] = spendings["donation"] + trans.total
+            elif trans.spending == "Daily":
+                spendings["daily"] = spendings["daily"] + trans.total
+            elif trans.spending == "Holiday":
+                    spendings["holiday"] = spendings["holiday"] + trans.total
+            elif trans.spending == "Long Term Needs":
+                    spendings["long"] = spendings["long"] + trans.total
+            elif trans.spending == "Shopping":
+                    spendings["shopping"] = spendings["shopping"] + trans.total
+            elif trans.spending == "Snack":
+                    spendings["snack"] = spendings["snack"] + trans.total
+
+
         context["total_credit"] = total_credit
         context["total_debit"] = total_debit
         context["current_balance"] = current_balance
         context["month_year_list"] = month_year_list
+        context["spendings"] = spendings
         return context
 
 

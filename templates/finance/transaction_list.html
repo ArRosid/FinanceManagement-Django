@@ -23,6 +23,7 @@
             <th scope="col">Wallet</th>
             <th scope="col">Total</th>
             <th scope="col">Description</th>
+            <th scope="col">Spending</th>
             <th scope="col">Created At</th>
 
         </tr>
@@ -35,6 +36,7 @@
             <td>{{transaction.wallet}}</td>
             <td>{{transaction.total}}</td>
             <td>{{transaction.description}}</td>
+            <td>{{transaction.spending}}</td>
             <td>{{transaction.created_at}}</td>
         </tr>
         {% endfor %}
@@ -47,6 +49,8 @@
     <p class="mt-0 mb-0">Deviation : {{current_balance}}</p>
     <hr class="mt-4 mb-4">
     <canvas id="credit-debit" width="1000" height="450"></canvas>
+    <hr class="mt-4 mb-4">
+    <canvas id="spendings" width="1000" height="450"></canvas>
 
 {% endblock %}
 
@@ -81,16 +85,62 @@
     };
 
     new Chart(document.getElementById("credit-debit"), {
-    type: 'pie',
-    data: {
-      labels: ["Credit", "Debit"],
-      datasets: [{
-        label: "Population (millions)",
-        backgroundColor: ["#3cba9f","#c45850"],
-        data: [credit,debit]
-      }]
-    },
-    options: options,
-});
+      type: 'pie',
+      data: {
+        labels: ["Credit", "Debit"],
+        datasets: [{
+          label: "Population (millions)",
+          backgroundColor: ["#3cba9f","#c45850"],
+          data: [credit,debit]
+        }]
+      },
+      options: options,
+    });
+
+
+    var donation = parseFloat("{{spendings.donation}}".replace(/,/g, ''));
+    var daily = parseFloat("{{spendings.daily}}".replace(/,/g, ''));
+    var holiday = parseFloat("{{spendings.holiday}}".replace(/,/g, ''));
+    var long = parseFloat("{{spendings.long}}".replace(/,/g, ''));
+    var shopping = parseFloat("{{spendings.shopping}}".replace(/,/g, ''));
+    var snack = parseFloat("{{spendings.snack}}".replace(/,/g, ''));
+    
+    var options = {
+      title: {
+        display: true,
+        text: 'Spendings'
+      },
+      tooltips: {
+        enabled: false
+      },
+      plugins: {
+        datalabels: {
+          formatter: (value, ctx) => {
+            let datasets = ctx.chart.data.datasets;
+            if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
+              let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+              let percentage = ((value / sum) * 100).toFixed(2) + '%' + ' (' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ')' ;
+              return percentage;
+            } else {
+              return percentage;
+            }
+          },
+          color: '#fff',
+        }
+      }
+    };
+
+    new Chart(document.getElementById("spendings"), {
+      type: 'pie',
+      data: {
+        labels: ["Donation", "Daily", "Holiday", "Long Term", "Shopping", "Snack"],
+        datasets: [{
+          label: "Population (millions)",
+          backgroundColor: ["#3cba9f","#c45850","#4b77a9", "#5f255f", "#d21243", "#B27200"],
+          data: [donation, daily, holiday, long, shopping, snack]
+        }]
+      },
+      options: options,
+    });
 </script>
 {% endblock %}
