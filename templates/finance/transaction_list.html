@@ -29,7 +29,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for transaction in object_list %}
+        {% for transaction in page_obj %}
         <tr class="{% if transaction.transaction_type == 'Credit' %} table-success {% else %} table-danger {% endif %}">
             <th scope="row">{{forloop.counter}}</th>
             <td >{{transaction.transaction_type}}</td>
@@ -42,6 +42,17 @@
         {% endfor %}
         </tbody>
     </table>
+    <span class="current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item {% if not page_obj.has_previous %} disabled {% endif %}"><a class="page-link" href="{% if  page_obj.has_previous %} ?page={{ page_obj.previous_page_number }} {% else %} # {% endif %}">Previous</a></li>
+        <li class="page-item {% if not page_obj.has_next %} disabled {% endif %} "><a class="page-link" href="{% if  page_obj.has_next %} ?page={{ page_obj.next_page_number }} {% else %} # {% endif %}">Next</a></li>
+      </ul>
+    </nav>
+
     <hr class="mt-0 mb-4">
 
     <p class="mt-0 mb-1">Total Credit this month: {{total_credit}}</p>

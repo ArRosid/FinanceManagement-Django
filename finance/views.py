@@ -32,10 +32,12 @@ class TransactionListView(LoginRequiredMixin, ListView):
     login_url = "/login/"
     redirect_field_name = "redirect_to"
     model = models.Transaction
+    paginate_by = 10
 
     def get_queryset(self):
         month_year = self.request.GET.get("month")
         
+        # if we have month in url parameters
         if month_year is not None:
             # convert month string to number
             month = month_year.split(" ")[0]
@@ -51,6 +53,7 @@ class TransactionListView(LoginRequiredMixin, ListView):
                             )
             return transactions
 
+        # return now month if we don't have month in url parameter
         else:
             month = datetime.datetime.now().month
             year = datetime.datetime.now().year
